@@ -60,3 +60,26 @@ def search_news(q: str):
         lines.append(f'- {title} ({url}): {snippet}')
 
     return {'text': '\n'.join(lines) if lines else 'No results found.'}
+
+@app.get('/email')
+def email_action(action: str = 'list', id: str = ''):
+    if action == 'list':
+        cmd = ['/usr/local/bin/himalaya', 'envelope', 'list']
+    elif action == 'read' and id:
+        cmd = ['/usr/local/bin/himalaya', 'message', 'read', id]
+    elif action == 'latest':
+        r = subprocess.run(['/usr/local/bin/himalaya', 'envelope', 'list'], capture_output=True, text=True, timeout=30)
+        out = re.sub(r"\[[0-9;]*m", "", r.stdout)
+        # find first ID (first number in table)
+        m = re.search(r"\|\s*(\d+)\s*\|", out)
+        if not m:
+            return {"text": "No emails found"}
+        first_id = m.group(1)
+        cmd = ["/usr/local/bin/himalaya", "message", "read", first_id]
+    else:
+        return {"text": "Error: use action=list, action=read&id=NUMBER, or action=latest"}
+
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+    output = result.stdout or result.stderr
+    output = re.sub(r"\[[0-9;]*m", "", output)
+    return {"text": output.strip()}

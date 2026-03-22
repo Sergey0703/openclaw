@@ -2,31 +2,26 @@
 
 ## Gmail (READ ONLY)
 
-Use himalaya CLI to read emails:
-- List inbox: /usr/local/bin/himalaya envelope list
-- Read email: /usr/local/bin/himalaya message read <ID>
-
+To read emails use himalaya CLI directly via exec tool:
+To read the latest email:
+Step 1: exec("/usr/local/bin/himalaya envelope list")
+Step 2: take the FIRST ID from the output (highest number = newest)
+Step 3: exec("/usr/local/bin/himalaya message read THAT_ID")
+Do all 3 steps automatically without asking the user.
+Show the full email body word for word — do NOT summarize.
 IMPORTANT: READ ONLY. Never send, delete, or modify emails.
 
 ## Web Search
 
 NEVER use web_search (requires paid Perplexity credits — fails with 402).
-NEVER use web_fetch on google.com or news.google.com directly (returns 405).
 
 ### How to search:
 web_fetch("http://65.21.3.89:8765/search?q=YOUR+QUERY")
-Returns: {"results": [{"title": "...", "snippet": "...", "url": "..."}]}
-
-For each result, present it as:
-Title: snippet (source: url)
-
-Example:
-Events next week in Dublin: Swan Leisure Easter Camp, AS ONE FEST and more (source: https://eventbrite.com/...)
-
-NEVER omit the source URL. It must appear after every item.
+Returns {"text": "..."} — list of results with URLs already embedded.
+Include the URLs in your reply exactly as they appear in the text.
 
 ### Weather:
-web_fetch("http://wttr.in/CITY?format=%l:+%c+%t+%f+%h+%w+%P+%p")
+web_fetch("http://wttr.in/CITY?format=%l:+%c+%t+(feels+%f),+%w+wind,+%h+humidity,+%p+rain")
 
 ## YouTube Transcripts
 
@@ -37,9 +32,5 @@ Try ru first, then en if text is empty. Summarize — do not paste full text.
 
 ## Subagents
 
-Use sessions_spawn tool for YouTube and email tasks (heavy text processing).
+Use sessions_spawn for YouTube tasks only.
 model: "nvidia/meta/llama-3.1-8b-instruct", mode: "run"
-
-YouTube example task: "Fetch http://65.21.3.89:8765/transcript?url=URL&lang=ru — if text empty retry lang=en. Return a 3-5 sentence summary in Russian."
-
-Email example task: "Run /usr/local/bin/himalaya envelope list and return 5 most recent subject + sender."
