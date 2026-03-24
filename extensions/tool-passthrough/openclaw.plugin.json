@@ -1,0 +1,15 @@
+{
+  "id": "tool-passthrough",
+  "name": "Tool Result Passthrough",
+  "description": "Forces verbatim output for web_fetch results from local API endpoints.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "enabled": {
+        "type": "boolean",
+        "description": "Enable or disable the plugin"
+      }
+    }
+  }
+}

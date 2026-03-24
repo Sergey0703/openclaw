@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.3.13",
+    "lastTouchedAt": "2026-03-24T20:41:51.880Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-03-21T18:05:30.567Z",
+    "lastRunVersion": "2026.3.13",
+    "lastRunCommand": "configure",
+    "lastRunMode": "local"
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "modal": {
+        "baseUrl": "https://sergey070373--openclaw-llm-serve.modal.run/v1",
+        "apiKey": "local",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "openclaw-llm",
+            "name": "Qwen2.5-14B Modal",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "contextWindow": 32768,
+            "maxTokens": 8192
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "nvidia/meta/llama-3.3-70b-instruct"
+      },
+      "models": {
+        "groq/qwen/qwen3-32b": {},
+        "openrouter/nvidia/nemotron-3-super-120b-a12b:free": {},
+        "openrouter/qwen/qwen3-32b:free": {},
+        "openrouter/stepfun/step-3.5-flash:free": {},
+        "nvidia/meta/llama-3.3-70b-instruct": {},
+        "custom:https://sergey070373--openclaw-llm-serve.modal.run/v1/openclaw-llm": {},
+        "custom:https://sergey070373--openclaw-llm-serve.modal.run/v1": {}
+      },
+      "memorySearch": {
+        "enabled": false
+      },
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "subagents": {
+        "model": {
+          "primary": "nvidia/meta/llama-3.1-8b-instruct"
+        }
+      }
+    }
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "execApprovals": {
+        "enabled": false,
+        "approvers": [
+          "940676896"
+        ]
+      },
+      "enabled": true,
+      "dmPolicy": "allowlist",
+      "botToken": "8449030330:AAEXqV4AB4-w0A3KVDKRFdVCEpKYbDG1E80",
+      "allowFrom": [
+        940676896
+      ],
+      "groupPolicy": "disabled",
+      "streaming": "partial"
+    }
+  },
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "7849a67a4f8b73a5205e90ad935e58d194625594303b4328"
+    }
+  },
+  "plugins": {
+    "allow": [
+      "composio",
+      "tool-passthrough",
+      "telegram"
+    ],
+    "entries": {
+      "composio": {
+        "enabled": true
+      }
+    },
+    "installs": {
+      "composio": {
+        "source": "npm",
+        "spec": "@composio/openclaw-plugin",
+        "installPath": "/root/.openclaw/extensions/composio",
+        "version": "0.0.8",
+        "resolvedName": "@composio/openclaw-plugin",
+        "resolvedVersion": "0.0.8",
+        "resolvedSpec": "@composio/openclaw-plugin@0.0.8",
+        "integrity": "sha512-8dlafa5tifbia5F8YH4eA7HYhBrGMG49XJivR/Jutd8eGqV+57NYH/InXyZWXrCP1oViwUAy61rA4fEscWHixQ==",
+        "shasum": "c892b3dde4bf0a598625373d0d063818eb8054ff",
+        "resolvedAt": "2026-03-21T17:22:46.643Z",
+        "installedAt": "2026-03-21T17:22:54.759Z"
+      }
+    }
+  }
+}
