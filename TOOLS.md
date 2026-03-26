@@ -23,14 +23,13 @@ Include the URLs in your reply exactly as they appear in the text.
 ### Weather:
 web_fetch("http://wttr.in/CITY?format=%l:+%c+%t+(feels+%f),+%w+wind,+%h+humidity,+%p+rain")
 
-## YouTube Transcripts
+## YouTube Links
 
-When user sends YouTube link — ALWAYS fetch transcript first:
-web_fetch("http://65.21.3.89:8765/transcript?url=YOUTUBE_URL&lang=ru")
-Returns: {"text": "transcript..."}
-Try ru first, then en if text is empty. Summarize — do not paste full text.
+When user sends a YouTube link — delegate to ytdigest subagent:
+exec("openclaw agent --agent ytdigest --message '/ytsummarize YOUTUBE_URL'")
+Do NOT process YouTube links yourself. Always delegate to ytdigest.
 
-## Subagents
+## /ytdigest command
 
-Use sessions_spawn for YouTube tasks only.
-model: "nvidia/meta/llama-3.1-8b-instruct", mode: "run"
+When user asks for YouTube digest — delegate to ytdigest subagent:
+exec("openclaw agent --agent ytdigest --message '/ytdigest 1'")
