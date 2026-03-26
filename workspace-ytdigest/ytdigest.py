@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 import sys
 import re
@@ -10,7 +11,7 @@ from datetime import datetime, timedelta
 CHANNELS_FILE = '/root/.openclaw/workspace-ytdigest/channels.txt'
 PROCESSED_FILE = '/media/ytsummary/processed.txt'
 
-BOT_TOKEN = '8449030330:REDACTED_BOT_TOKEN'
+BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '')
 CHAT_ID = '-1003823823665'
 TOPIC_ID = 22
 

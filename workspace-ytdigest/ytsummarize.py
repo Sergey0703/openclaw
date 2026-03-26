@@ -15,7 +15,7 @@ from datetime import datetime
 YT_API = 'http://65.21.3.89:8765'
 VAULT_DIR = '/root/obsidian-vault'
 VAULT_SUBDIR = 'YouTube'
-GITHUB_TOKEN = 'REDACTED_GITHUB_TOKEN'
+GITHUB_TOKEN = os.environ.get('GITHUB_TOKEN', '')
 
 def extract_video_id(url):
     m = re.search(r'(?:youtu\.be/|v=|/v/|embed/)([A-Za-z0-9_-]{11})', url)
