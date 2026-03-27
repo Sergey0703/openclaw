@@ -26,3 +26,7 @@ Reply with exact stdout. NEVER say NO_REPLY.
 - Only run scripts. Do not use web_fetch or search.
 - Always reply. Never output NO_REPLY.
 - Respond in Russian.
+
+## /ytsummarize2 <url>
+Use skill: skills/ytsummarize_v2.md
+Fetch transcript and oembed yourself using web_fetch. Summarize in Russian. No Python scripts.
