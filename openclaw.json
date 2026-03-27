@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.3.13",
-    "lastTouchedAt": "2026-03-24T20:41:51.880Z"
+    "lastTouchedVersion": "2026.3.23-2",
+    "lastTouchedAt": "2026-03-27T12:27:00.064Z"
   },
   "wizard": {
     "lastRunAt": "2026-03-21T18:05:30.567Z",
@@ -13,18 +13,150 @@
     "mode": "merge",
     "providers": {
       "modal": {
-        "baseUrl": "https://sergey070373--openclaw-llm-serve.modal.run/v1",
-        "apiKey": "local",
+        "baseUrl": "https://api.us-west-2.modal.direct/v1",
+        "apiKey": "modalresearch_KMghsFs9VtaZMMTc4jxLXDDgS6RYAPNUj_LCXUGv1uw",
         "api": "openai-completions",
         "models": [
           {
-            "id": "openclaw-llm",
-            "name": "Qwen2.5-14B Modal",
+            "id": "zai-org/GLM-5-FP8",
+            "name": "zai-org/GLM-5-FP8 (Custom Provider)",
             "reasoning": false,
             "input": [
               "text"
             ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
             "contextWindow": 32768,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "cerebras": {
+        "baseUrl": "https://api.cerebras.ai/v1",
+        "apiKey": "CEREBRAS_API_KEY",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "qwen-3-235b-a22b-instruct-2507",
+            "name": "Cerebras Qwen-3 235B",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "groq": {
+        "baseUrl": "https://api.groq.com/openai/v1",
+        "apiKey": "GROQ_API_KEY_HERE",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "llama-3.3-70b-versatile",
+            "name": "Groq Llama 3.3 70B",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "llama-3.1-8b-instant",
+            "name": "Groq Llama 3.1 8B",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "qwen-qwq-32b",
+            "name": "Groq QwQ 32B",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "meta-llama/llama-4-scout-17b-16e-instruct",
+            "name": "Groq Llama 4 Scout",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 131072,
+            "maxTokens": 8192
+          },
+          {
+            "id": "qwen/qwen3-32b",
+            "name": "Groq Qwen3 32B",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "moonshotai/kimi-k2-instruct",
+            "name": "Groq Kimi K2",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 131072,
             "maxTokens": 8192
           }
         ]
@@ -56,8 +188,78 @@
           "primary": "nvidia/meta/llama-3.1-8b-instruct"
         }
       }
-    }
+    },
+    "list": [
+      {
+        "id": "main",
+        "identity": {
+          "name": "Alice",
+          "emoji": "\ud83e\udd16"
+        },
+        "subagents": {
+          "allowAgents": [
+            "ytsummarize-v2",
+            "pioner"
+          ]
+        },
+        "model": {
+          "primary": "nvidia/meta/llama-3.3-70b-instruct",
+          "fallbacks": [
+            "cerebras/qwen-3-235b-a22b-instruct-2507",
+            "groq/moonshotai/kimi-k2-instruct"
+          ]
+        }
+      },
+      {
+        "id": "ytdigest",
+        "name": "ytdigest",
+        "workspace": "/root/.openclaw/workspace-ytdigest",
+        "agentDir": "/root/.openclaw/agents/ytdigest/agent",
+        "model": {
+          "primary": "cerebras/qwen-3-235b-a22b-instruct-2507",
+          "fallbacks": [
+            "nvidia/meta/llama-3.3-70b-instruct",
+            "openrouter/google/gemini-flash-1.5",
+            "openrouter/mistralai/mistral-small-3.1-24b-instruct:free"
+          ]
+        }
+      },
+      {
+        "id": "ytsummarize-v2",
+        "name": "ytsummarize-v2",
+        "workspace": "/root/.openclaw/workspace-ytsummarize-v2",
+        "agentDir": "/root/.openclaw/agents/ytsummarize-v2/agent",
+        "model": {
+          "primary": "nvidia/meta/llama-3.3-70b-instruct",
+          "fallbacks": [
+            "cerebras/qwen-3-235b-a22b-instruct-2507",
+            "groq/llama-3.3-70b-versatile",
+            "openrouter/mistralai/mistral-small-3.1-24b-instruct:free"
+          ]
+        },
+        "tools": {
+          "alsoAllow": [
+            "web_fetch",
+            "web_search"
+          ]
+        }
+      },
+      {
+        "id": "pioner",
+        "name": "pioner",
+        "workspace": "/root/.openclaw/workspace-pioner",
+        "model": {
+          "primary": "cerebras/qwen-3-235b-a22b-instruct-2507",
+          "fallbacks": [
+            "nvidia/meta/llama-3.3-70b-instruct",
+            "openrouter/google/gemini-flash-1.5",
+            "openrouter/mistralai/mistral-small-3.1-24b-instruct:free"
+          ]
+        }
+      }
+    ]
   },
+  "bindings": [],
   "commands": {
     "native": "auto",
     "nativeSkills": "auto",
@@ -84,12 +286,33 @@
       },
       "enabled": true,
       "dmPolicy": "allowlist",
-      "botToken": "8449030330:AAEXqV4AB4-w0A3KVDKRFdVCEpKYbDG1E80",
+      "botToken": "8449030330:AAH5XqTv69P2usSg4E7TG8FGKF7LCPQuqrQ",
+      "groups": {
+        "-1003823823665": {
+          "topics": {
+            "22": {
+              "agentId": "ytdigest"
+            },
+            "223": {
+              "agentId": "ytsummarize-v2",
+              "requireMention": false
+            },
+            "1": {
+              "agentId": "main",
+              "requireMention": false,
+              "systemPrompt": "This is a private 1-on-1 channel with the owner. ALWAYS respond to every message. Never output NO_REPLY. The owner is the only person here."
+            }
+          }
+        }
+      },
       "allowFrom": [
         940676896
       ],
-      "groupPolicy": "disabled",
-      "streaming": "partial"
+      "groupPolicy": "open",
+      "streaming": "off",
+      "threadBindings": {
+        "enabled": false
+      }
     }
   },
   "gateway": {
@@ -121,8 +344,8 @@
         "resolvedSpec": "@composio/openclaw-plugin@0.0.8",
         "integrity": "sha512-8dlafa5tifbia5F8YH4eA7HYhBrGMG49XJivR/Jutd8eGqV+57NYH/InXyZWXrCP1oViwUAy61rA4fEscWHixQ==",
         "shasum": "c892b3dde4bf0a598625373d0d063818eb8054ff",
-        "resolvedAt": "2026-03-21T17:22:46.643Z",
-        "installedAt": "2026-03-21T17:22:54.759Z"
+        "resolvedAt": "2026-03-25T13:06:20.368Z",
+        "installedAt": "2026-03-25T13:06:24.390Z"
       }
     }
   }
