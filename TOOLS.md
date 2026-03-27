@@ -26,7 +26,7 @@ web_fetch("http://wttr.in/CITY?format=%l:+%c+%t+(feels+%f),+%w+wind,+%h+humidity
 ## YouTube Links
 
 When user sends a YouTube link — delegate to ytsummarize subagent:
-exec("openclaw agent --agent ytsummarize --message '/ytsummarize YOUTUBE_URL'")
+exec("openclaw agent --agent ytsummarize-v2 --message '/ytsummarize YOUTUBE_URL'")
 Do NOT process YouTube links yourself.
 
 ## /ytdigest command
