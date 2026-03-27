@@ -1,0 +1,52 @@
+# Формат: ru|URL или en|URL
+# AI / автоматизация / агенты / нейросети
+
+# --- Русскоязычные ---
+ru|https://www.youtube.com/channel/UCi5bDAJ_I4shONrU-au_zRA
+ru|https://www.youtube.com/channel/UCq_L4pHHIuWBW6OSKKxBbgw
+ru|https://www.youtube.com/channel/UCy3bfnqKyMGc6S5o4y4nPmg
+ru|https://www.youtube.com/channel/UC9tZbR8DlUSXLjLqwUmwzWA
+ru|https://www.youtube.com/channel/UCBkyGfFHBDiSasIG7mE4LcA
+ru|https://www.youtube.com/channel/UCLk7uewdd5s7kszfy736ScA
+ru|https://www.youtube.com/channel/UCUBsfJvNpRCCjYDPWmgKcJg
+ru|https://www.youtube.com/channel/UCW6QeFhV3uUJi0fvjYdkqzg
+ru|https://www.youtube.com/channel/UCC_eOkS6VkyiUI_O-p-_HVQ
+ru|https://www.youtube.com/channel/UCqse7vn8rp3Q1TXuaueXAIA
+ru|https://www.youtube.com/channel/UCqLx7JqvlHkF22RPkE0iw3A
+ru|https://www.youtube.com/channel/UCloaD707GVZ7aGKYYSvBcaA
+ru|https://www.youtube.com/channel/UC63Yb1DTFtZICKXRi0Ce-Hg
+ru|https://www.youtube.com/channel/UCpOz21-gQF1l0byh66v3EYA
+ru|https://www.youtube.com/channel/UCVYVcT9cJadYgGvxF7fS5SQ
+ru|https://www.youtube.com/channel/UCRArIk56Yl7ui2WUAKS3NGA
+ru|https://www.youtube.com/channel/UC_GgOplL884a5epC_tLmZ5g
+ru|https://www.youtube.com/channel/UCL9qmgOJwczxpMmtgKwDDeA
+ru|https://www.youtube.com/channel/UCqtCvvpMkQqHWV2RNw2U3NA
+ru|https://www.youtube.com/channel/UC41vn_vkiSjT1sqQk3vMhWg
+ru|https://www.youtube.com/channel/UCD_ztiVVtwhWAYuZeJ1bkjA
+ru|https://www.youtube.com/channel/UCF_CEx0XMnwShbhiHIZonTw
+ru|https://www.youtube.com/channel/UCq3NUDgdrac4zGkWve4sP4Q
+ru|https://www.youtube.com/channel/UCU7tr4ol7z7lhtuXUluKz5g
+ru|https://www.youtube.com/channel/UCQG4SRL-lK9fljdj3ZesWKw
+ru|https://www.youtube.com/channel/UCLY03On5ToVWf8Lm8D-bfxQ
+
+# --- Англоязычные ---
+en|https://www.youtube.com/channel/UC2ojq-nuP8ceeHqiroeKhBA
+en|https://www.youtube.com/channel/UCxVxcTULO9cFU6SB9qVaisQ
+en|https://www.youtube.com/channel/UC0m81bQuthaQZmFbXEY9QSw
+en|https://www.youtube.com/channel/UC-r7MnHqVJQEOD-GW2ZAtEQ
+en|https://www.youtube.com/channel/UCPrQct9V2_cXlscYQ9Kscqg
+en|https://www.youtube.com/channel/UCoy6cTJ7Tg0dqS-DI-_REsA
+en|https://www.youtube.com/channel/UC9XxwM0RTJ1GvGwlHhsL-dA
+en|https://www.youtube.com/channel/UCOXRjenlq9PmlTqd_JhAbMQ
+en|https://www.youtube.com/channel/UCDq7SjbgRKty5TgGafW8Clg
+en|https://www.youtube.com/channel/UC9uPzm8RxcdKKT8zTdzP3Cw
+en|https://www.youtube.com/channel/UC_Zlfeeie_hiRUJckqEp8hg
+en|https://www.youtube.com/channel/UCQw4zDb735eezImafcyYlWg
+en|https://www.youtube.com/channel/UCelfWQr9sXVMTvBzviPGlFw
+en|https://www.youtube.com/channel/UCbl3ZE9fDVWN0xjsGEJslmw
+en|https://www.youtube.com/channel/UCi-cfqOM31FTEVGp1Nl_GFA
+en|https://www.youtube.com/channel/UCekl-8C5GwYlSVN3kKTX_Tw
+en|https://www.youtube.com/channel/UC5ty1e0B5cOqHTtAi21H14A
+en|https://www.youtube.com/channel/UCGEtui4SXxX94gl6lQmDBNQ
+en|https://www.youtube.com/channel/UCKBj5HPTd64zoQmkGNseKUw
+en|https://www.youtube.com/channel/UCJyDMA1hY0gWrCylFD963DA
