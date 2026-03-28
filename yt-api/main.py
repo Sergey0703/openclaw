@@ -3,35 +3,97 @@ import subprocess, tempfile, os, re, urllib.request, urllib.parse, json
 
 app = FastAPI()
 
+GROQ_API_KEY = os.environ.get('GROQ_API_KEY', '')
 TAVILY_API_KEY = os.environ.get('TAVILY_API_KEY', '')
 
 @app.get('/transcript')
 def get_transcript(url: str, lang: str = 'ru'):
     with tempfile.TemporaryDirectory() as tmpdir:
         output_path = os.path.join(tmpdir, 'sub')
+
         def run_yt(lang_str):
             cmd = ['yt-dlp', '--cookies', '/root/.openclaw/youtube_cookies.txt',
                    '--js-runtimes', 'node', '--write-auto-sub', '--sub-lang', lang_str,
                    '--skip-download', '--no-playlist', '--quiet', url, '-o', output_path]
             subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+
+        # Try subtitles first
         run_yt(f'{lang},ru,en')
         vtt_files = [f for f in os.listdir(tmpdir) if f.endswith('.vtt')]
         if not vtt_files:
             run_yt('en,ru')
             vtt_files = [f for f in os.listdir(tmpdir) if f.endswith('.vtt')]
-        if not vtt_files:
-            return {'error': 'No transcript found', 'text': ''}
-        content = open(os.path.join(tmpdir, vtt_files[0]), encoding='utf-8').read()
-        lines = content.split('\n')
-        out = []
-        for line in lines:
-            line = line.strip()
-            if not line or '-->' in line or line.startswith('WEBVTT') or line.startswith('Kind:') or line.startswith('Language:') or re.match(r'^\d+$', line):
-                continue
-            line = re.sub(r'<[^>]+>', '', line).strip()
-            if line and (not out or out[-1] != line):
-                out.append(line)
-        return {'text': ' '.join(out)}
+
+        if vtt_files:
+            content = open(os.path.join(tmpdir, vtt_files[0]), encoding='utf-8').read()
+            lines = content.split('\n')
+            out = []
+            for line in lines:
+                line = line.strip()
+                if not line or '-->' in line or line.startswith('WEBVTT') or line.startswith('Kind:') or line.startswith('Language:') or re.match(r'^\d+$', line):
+                    continue
+                line = re.sub(r'<[^>]+>', '', line).strip()
+                if line and (not out or out[-1] != line):
+                    out.append(line)
+            if out:
+                return {'text': ' '.join(out), 'source': 'subtitles'}
+
+        # Fallback 1: video description
+        desc_result = subprocess.run(
+            ['yt-dlp', '--cookies', '/root/.openclaw/youtube_cookies.txt',
+             '--skip-download', '--print', 'description', '--no-playlist', '--quiet', url],
+            capture_output=True, text=True, timeout=30
+        )
+        description = desc_result.stdout.strip()
+        if description and len(description) > 100:
+            return {'text': description[:3000], 'source': 'description'}
+
+        # Fallback 2: Whisper via Groq
+        if not GROQ_API_KEY:
+            return {'error': 'No transcript found', 'text': '', 'source': 'none'}
+
+        audio_path = os.path.join(tmpdir, 'audio.mp3')
+        subprocess.run(
+            ['yt-dlp', '--cookies', '/root/.openclaw/youtube_cookies.txt',
+             '--js-runtimes', 'node', '-x', '--audio-format', 'mp3',
+             '--audio-quality', '5', '--no-playlist', '--quiet',
+             '--postprocessor-args', 'ffmpeg:-t 600',
+             url, '-o', audio_path],
+            capture_output=True, text=True, timeout=120
+        )
+        if not os.path.exists(audio_path):
+            return {'error': 'No transcript found', 'text': '', 'source': 'none'}
+
+        boundary = 'FormBoundary7MA4YWxkTrZu0gW'
+        with open(audio_path, 'rb') as af:
+            audio_data = af.read()
+
+        body = (
+            f'--{boundary}\r\n'
+            f'Content-Disposition: form-data; name="file"; filename="audio.mp3"\r\n'
+            f'Content-Type: audio/mpeg\r\n\r\n'
+        ).encode() + audio_data + (
+            f'\r\n--{boundary}\r\n'
+            f'Content-Disposition: form-data; name="model"\r\n\r\n'
+            f'whisper-large-v3-turbo\r\n'
+            f'--{boundary}--\r\n'
+        ).encode()
+
+        req = urllib.request.Request(
+            'https://api.groq.com/openai/v1/audio/transcriptions',
+            data=body,
+            headers={
+                'Authorization': f'Bearer {GROQ_API_KEY}',
+                'Content-Type': f'multipart/form-data; boundary={boundary}'
+            }
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                result = json.loads(r.read())
+                return {'text': result.get('text', ''), 'source': 'whisper'}
+        except Exception as e:
+            return {'error': str(e), 'text': '', 'source': 'none'}
+
 
 @app.get('/search')
 def search_news(q: str):
@@ -47,7 +109,6 @@ def search_news(q: str):
         with urllib.request.urlopen(req, timeout=15) as r:
             data = json.loads(r.read().decode('utf-8'))
     except urllib.error.HTTPError as e:
-        body = e.read().decode('utf-8')
         return {'text': f'Search error: {e.code}'}
     except Exception as e:
         return {'text': f'Search error: {str(e)}'}
@@ -64,6 +125,7 @@ def search_news(q: str):
     result = '\n'.join(lines)
     return {'text': result, 'instruction': 'Show each result with its URL (after →). Do not remove URLs.'}
 
+
 @app.get('/email')
 def email_action(action: str = 'list', id: str = ''):
     if action == 'list':
@@ -72,8 +134,7 @@ def email_action(action: str = 'list', id: str = ''):
         cmd = ['/usr/local/bin/himalaya', 'message', 'read', id]
     elif action == 'latest':
         r = subprocess.run(['/usr/local/bin/himalaya', 'envelope', 'list'], capture_output=True, text=True, timeout=30)
-        out = re.sub(r"\[[0-9;]*m", "", r.stdout)
-        # find first ID (first number in table)
+        out = re.sub(r"\[[0-9;]*m", "", r.stdout)
         m = re.search(r"\|\s*(\d+)\s*\|", out)
         if not m:
             return {"text": "No emails found"}
@@ -84,8 +145,9 @@ def email_action(action: str = 'list', id: str = ''):
 
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
     output = result.stdout or result.stderr
-    output = re.sub(r"\[[0-9;]*m", "", output)
+    output = re.sub(r"\[[0-9;]*m", "", output)
     return {"text": output.strip()}
+
 
 @app.get('/weather')
 def get_weather(city: str):

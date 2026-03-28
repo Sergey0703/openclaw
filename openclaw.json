@@ -194,7 +194,7 @@
         "id": "main",
         "identity": {
           "name": "Alice",
-          "emoji": "\ud83e\udd16"
+          "emoji": "🤖"
         },
         "subagents": {
           "allowAgents": [
@@ -207,6 +207,12 @@
           "fallbacks": [
             "cerebras/qwen-3-235b-a22b-instruct-2507",
             "groq/moonshotai/kimi-k2-instruct"
+          ]
+        },
+        "tools": {
+          "deny": [
+            "web_fetch",
+            "web_search"
           ]
         }
       },
