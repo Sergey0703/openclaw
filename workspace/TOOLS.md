@@ -22,12 +22,7 @@ exec("curl -s 'http://65.21.3.89:8765/search?q=latest+AI+news'")
 For weather:
 exec("curl -s 'http://wttr.in/CITY?format=%l:+%c+%t+(feels+%f),+%w+wind,+%h+humidity,+%p+rain'")
 
-## Multiply / Math via Pioner subagent
 
-When user asks to multiply a number:
-1. Call sessions_spawn(task="/multiply NUMBER", agentId="pioner", runTimeoutSeconds=60)
-2. Call sessions_yield() to end your turn and wait for the result
-DO NOT write anything else after sessions_yield.
 
 ## YouTube Links
 
@@ -39,3 +34,10 @@ DO NOT write anything else after sessions_yield.
 ## /ytdigest command
 
 exec("openclaw agent --agent ytdigest --message '/ytdigest 1'")
+
+## /checkapi command
+
+When user message is exactly "/checkapi":
+MUST call: exec("/usr/local/bin/check-status.sh")
+DO NOT call openclaw status or any other command.
+Reply with the exec output exactly as-is, no changes.

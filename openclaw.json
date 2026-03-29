@@ -60,7 +60,7 @@
       },
       "groq": {
         "baseUrl": "https://api.groq.com/openai/v1",
-        "apiKey": "GROQ_API_KEY_HERE",
+        "apiKey": "GROQ_API_KEY",
         "api": "openai-completions",
         "models": [
           {
@@ -194,25 +194,27 @@
         "id": "main",
         "identity": {
           "name": "Alice",
-          "emoji": "🤖"
+          "emoji": "\ud83e\udd16"
         },
         "subagents": {
           "allowAgents": [
-            "ytsummarize-v2",
-            "pioner"
+            "ytsummarize-v2"
           ]
         },
         "model": {
           "primary": "nvidia/meta/llama-3.3-70b-instruct",
           "fallbacks": [
-            "cerebras/qwen-3-235b-a22b-instruct-2507",
             "groq/moonshotai/kimi-k2-instruct"
           ]
         },
         "tools": {
           "deny": [
             "web_fetch",
-            "web_search"
+            "web_search",
+            "tts",
+            "sessions_send",
+            "sessions_list",
+            "sessions_history"
           ]
         }
       },
@@ -223,11 +225,7 @@
         "agentDir": "/root/.openclaw/agents/ytdigest/agent",
         "model": {
           "primary": "cerebras/qwen-3-235b-a22b-instruct-2507",
-          "fallbacks": [
-            "nvidia/meta/llama-3.3-70b-instruct",
-            "openrouter/google/gemini-flash-1.5",
-            "openrouter/mistralai/mistral-small-3.1-24b-instruct:free"
-          ]
+          "fallbacks": []
         }
       },
       {

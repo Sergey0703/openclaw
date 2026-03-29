@@ -1,19 +1,13 @@
-# USER.md - Профиль владельца
+# USER.md - About Serhii
 
-## Основное
-- Имя: Serhii
-- Telegram: @Sergey070373 (id:940676896)
-- Таймзона: Europe/Dublin (Europe/Dublin)
+- **Name:** Serhii (Сергій)
+- **Telegram:** 940676896
+- **Email:** sergey070373@gmail.com
+- **Language:** Russian/Ukrainian preferred, but OK with English
+- **Timezone:** Ireland (Europe/Dublin)
 
-## Контекст
-- Проект: [PROJECT_NAME]
-- Канал: "⚙️ [CHANNEL_NAME]" - публикует гайды по настройке AI-агентов
-- Опыт: продвинутый пользователь OpenClaw, есть второй агент [OTHER_AGENT]
-- Предпочитает голосовые сообщения
-- Язык общения: русский
-
-## Команда
-- [TRUSTED_USER_NAME] (Telegram id:[TRUSTED_USER_ID]) - второй доверенный пользователь
-
-## Важные даты
-- 23 марта 2026 - первая настройка этого агента
+## Notes
+- Has AI assistant setup on multiple servers
+- Wants web search, Gmail read, practical help
+- Prefers short, direct answers
+- Dislikes unnecessary verbosity

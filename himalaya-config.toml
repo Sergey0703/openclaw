@@ -1,0 +1,12 @@
+[accounts.gmail]
+default = true
+email = "sergey070373@gmail.com"
+display-name = "Serhii"
+backend.type = "imap"
+backend.host = "imap.gmail.com"
+backend.port = 993
+backend.encryption.type = "tls"
+backend.login = "sergey070373@gmail.com"
+backend.auth.type = "password"
+backend.auth.raw = "YOUR_GMAIL_APP_PASSWORD"
+message.send.backend.type = "none"

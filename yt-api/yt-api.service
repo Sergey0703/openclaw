@@ -1,0 +1,13 @@
+[Unit]
+Description=YouTube Transcript API
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=uvicorn main:app --host 0.0.0.0 --port 8765
+WorkingDirectory=/opt/yt-api
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

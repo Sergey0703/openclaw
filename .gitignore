@@ -1,0 +1,12 @@
+.env
+*.bak
+*.bak.*
+logs/
+delivery-queue/
+canvas/
+agents/
+extensions/
+identity/
+telegram/
+update-check.json
+cron/

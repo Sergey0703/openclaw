@@ -1,19 +1,5 @@
 # HEARTBEAT.md
 
-## Утренний прогрев (первый heartbeat после 08:00)
-1. Прочитай вчерашний дневник
-2. Есть ли незакрытые задачи?
-3. Проверь memory/pending-*.md - есть ли ожидающие сообщения
-4. Сообщи владельцу если есть важное
+# Keep this file empty (or with only comments) to skip heartbeat API calls.
 
-## Проверки (каждый heartbeat)
-- Обновления OpenClaw (сравни версии)
-- Диск: df -h /
-- Gateway: openclaw status
-
-## Главное правило
-Всё ок → HEARTBEAT_OK (молча)
-Проблема → Сразу оповестить владельца
-
-## Тишина
-Ночь (01:00-08:00) - молчать если нет критичного
+# Add tasks below when you want the agent to check something periodically.
