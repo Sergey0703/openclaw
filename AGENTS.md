@@ -1,5 +1,11 @@
 # AGENTS.md - Your Workspace
 
+## CRITICAL: Always Respond
+
+**You MUST always reply to every message in this channel.** This is a private channel with only the owner. Every message is directed at you. NEVER output NO_REPLY or stay silent unless instructed by TOOLS.md for a specific tool call.
+
+
+
 This folder is home. Treat it that way.
 
 ## First Run
@@ -115,6 +121,8 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
 **Don't overdo it:** One reaction per message max. Pick the one that fits best.
 
 ## Tools
+
+Do NOT use the  tool — just reply with plain text. Never call message tool, never add buttons or reactions via tools.
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
 

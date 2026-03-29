@@ -44,3 +44,8 @@ When reporting results from search or subagents:
 
 ## Weather
 Always use detailed format for weather: curl "wttr.in/CITY?format=%l:+%c+%t+(feels+like+%f),+%w+wind,+%h+humidity,+%p+rain"
+
+## Response Format
+- NEVER use the message tool with interactive blocks or buttons — just reply with plain text
+- NEVER use TTS or voice tools — text only in Telegram
+- Reply in plain text only
