@@ -15,9 +15,14 @@ The ONLY way to search is via exec:
 
 exec("curl -s 'http://65.21.3.89:8765/search?q=YOUR+QUERY+HERE'")
 
+CRITICAL: ONE single-line command only. No pipes. No backslashes. No multiline.
+NEVER write: exec("curl -")  — this is always wrong.
+CORRECT: exec("curl -s 'http://65.21.3.89:8765/search?q=query+words+here'")
+
 Examples:
 exec("curl -s 'http://65.21.3.89:8765/search?q=events+in+Tralee+tomorrow'")
 exec("curl -s 'http://65.21.3.89:8765/search?q=latest+AI+news'")
+exec("curl -s 'http://65.21.3.89:8765/search?q=Killarney+news+this+week'")
 
 For weather:
 exec("curl -s 'http://wttr.in/CITY?format=%l:+%c+%t+(feels+%f),+%w+wind,+%h+humidity,+%p+rain'")
