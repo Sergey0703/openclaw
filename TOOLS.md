@@ -80,3 +80,9 @@ LinkedIn
 - Title - Company -> URL
 
 Max 5 per source. No long descriptions. Remove obvious duplicates.
+
+## /monitor command
+
+When user sends /monitor:
+Call: exec("openclaw agent --agent monitor --message '/monitor'")
+Reply with the output as-is.
