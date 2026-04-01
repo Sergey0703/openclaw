@@ -4,6 +4,10 @@
     "web-search-free": {
       "version": "1.0.1",
       "installedAt": 1774819674718
+    },
+    "word-docx": {
+      "version": "1.0.2",
+      "installedAt": 1774823252996
     }
   }
 }
