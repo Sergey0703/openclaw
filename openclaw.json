@@ -1,12 +1,12 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.3.23-2",
-    "lastTouchedAt": "2026-03-27T12:27:00.064Z"
+    "lastTouchedAt": "2026-04-30T14:44:18.383Z"
   },
   "wizard": {
-    "lastRunAt": "2026-03-21T18:05:30.567Z",
-    "lastRunVersion": "2026.3.13",
-    "lastRunCommand": "configure",
+    "lastRunAt": "2026-04-30T14:44:18.349Z",
+    "lastRunVersion": "2026.3.23-2",
+    "lastRunCommand": "doctor",
     "lastRunMode": "local"
   },
   "models": {
@@ -14,7 +14,7 @@
     "providers": {
       "modal": {
         "baseUrl": "https://api.us-west-2.modal.direct/v1",
-        "apiKey": "modalresearch_KMghsFs9VtaZMMTc4jxLXDDgS6RYAPNUj_LCXUGv1uw",
+        "apiKey": "MODAL_API_KEY",
         "api": "openai-completions",
         "models": [
           {
@@ -31,7 +31,7 @@
               "cacheWrite": 0
             },
             "contextWindow": 32768,
-            "maxTokens": 8192
+            "maxTokens": 4096
           }
         ]
       },
@@ -160,6 +160,29 @@
             "maxTokens": 8192
           }
         ]
+      },
+      "ollama": {
+        "baseUrl": "https://ollama.com",
+        "apiKey": "OLLAMA_API_KEY",
+        "api": "ollama",
+        "models": [
+          {
+            "id": "kimi-k2.5",
+            "name": "Kimi K2.5 (Ollama Cloud)",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 131072,
+            "maxTokens": 4096
+          }
+        ]
       }
     }
   },
@@ -175,7 +198,14 @@
         "openrouter/stepfun/step-3.5-flash:free": {},
         "nvidia/meta/llama-3.3-70b-instruct": {},
         "custom:https://sergey070373--openclaw-llm-serve.modal.run/v1/openclaw-llm": {},
-        "custom:https://sergey070373--openclaw-llm-serve.modal.run/v1": {}
+        "custom:https://sergey070373--openclaw-llm-serve.modal.run/v1": {},
+        "modal/zai-org/GLM-5-FP8": {},
+        "ollama/kimi-k2.5": {},
+        "cerebras/qwen-3-235b-a22b-instruct-2507": {},
+        "openrouter/qwen/qwen3.6-plus-preview:free": {},
+        "ollama/nemotron-3-super": {},
+        "ollama/qwen3-next:80b": {},
+        "openrouter/qwen/qwen3.6-plus:free": {}
       },
       "memorySearch": {
         "enabled": false
@@ -192,19 +222,21 @@
     "list": [
       {
         "id": "main",
+        "model": {
+          "primary": "nvidia/meta/llama-3.3-70b-instruct",
+          "fallbacks": [
+            "ollama/kimi-k2.5",
+            "cerebras/qwen-3-235b-a22b-instruct-2507",
+            "groq/moonshotai/kimi-k2-instruct"
+          ]
+        },
         "identity": {
           "name": "Alice",
-          "emoji": "\ud83e\udd16"
+          "emoji": "🤖"
         },
         "subagents": {
           "allowAgents": [
             "ytsummarize-v2"
-          ]
-        },
-        "model": {
-          "primary": "nvidia/meta/llama-3.3-70b-instruct",
-          "fallbacks": [
-            "groq/moonshotai/kimi-k2-instruct"
           ]
         },
         "tools": {
@@ -214,7 +246,11 @@
             "tts",
             "sessions_send",
             "sessions_list",
-            "sessions_history"
+            "sessions_history",
+            "message",
+            "sessions_yield",
+            "status",
+            "session_status"
           ]
         }
       },
@@ -260,6 +296,54 @@
             "openrouter/mistralai/mistral-small-3.1-24b-instruct:free"
           ]
         }
+      },
+      {
+        "id": "jobs",
+        "name": "jobs",
+        "workspace": "/root/.openclaw/workspace-jobs",
+        "agentDir": "/root/.openclaw/agents/jobs/agent",
+        "model": {
+          "primary": "cerebras/qwen-3-235b-a22b-instruct-2507",
+          "fallbacks": [
+            "ollama/kimi-k2.5",
+            "groq/moonshotai/kimi-k2-instruct"
+          ]
+        },
+        "tools": {
+          "deny": [
+            "tts",
+            "sessions_send",
+            "sessions_list",
+            "sessions_history",
+            "sessions_spawn",
+            "sessions_yield"
+          ]
+        }
+      },
+      {
+        "id": "monitor",
+        "name": "monitor",
+        "workspace": "/root/.openclaw/workspace-monitor",
+        "agentDir": "/root/.openclaw/agents/monitor/agent",
+        "model": {
+          "primary": "nvidia/meta/llama-3.3-70b-instruct",
+          "fallbacks": [
+            "cerebras/qwen-3-235b-a22b-instruct-2507",
+            "groq/qwen/qwen3-32b"
+          ]
+        },
+        "tools": {
+          "deny": [
+            "web_fetch",
+            "web_search",
+            "tts",
+            "sessions_send",
+            "sessions_list",
+            "sessions_history",
+            "message",
+            "sessions_yield"
+          ]
+        }
       }
     ]
   },
@@ -269,6 +353,9 @@
     "nativeSkills": "auto",
     "restart": true,
     "ownerDisplay": "raw"
+  },
+  "session": {
+    "typingMode": "thinking"
   },
   "hooks": {
     "internal": {
@@ -294,17 +381,29 @@
       "groups": {
         "-1003823823665": {
           "topics": {
+            "0": {
+              "requireMention": false,
+              "systemPrompt": "This is the General chat. ALWAYS respond to every message from the owner.",
+              "agentId": "main"
+            },
+            "1": {
+              "requireMention": false,
+              "agentId": "main"
+            },
             "22": {
               "agentId": "ytdigest"
             },
             "223": {
-              "agentId": "ytsummarize-v2",
-              "requireMention": false
-            },
-            "1": {
-              "agentId": "main",
               "requireMention": false,
-              "systemPrompt": "This is a private 1-on-1 channel with the owner. ALWAYS respond to every message. Never output NO_REPLY. The owner is the only person here."
+              "agentId": "ytsummarize-v2"
+            },
+            "564": {
+              "requireMention": false,
+              "agentId": "jobs"
+            },
+            "700": {
+              "requireMention": false,
+              "agentId": "monitor"
             }
           }
         }
